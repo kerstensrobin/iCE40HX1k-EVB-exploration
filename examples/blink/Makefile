@@ -25,7 +25,7 @@ flash: $(PROJ).bin
 	ssh $(RPI_HOST) '\
 		tr "\000" "\377" < /dev/zero | dd bs=2M count=1 of=flash_image.bin 2>/dev/null; \
 		dd if=$(PROJ).bin conv=notrunc of=flash_image.bin 2>/dev/null; \
-		sudo /usr/local/bin/flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=20000 -w flash_image.bin; \
+		sudo /usr/local/sbin/flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=20000 -w flash_image.bin; \
 		sudo sh -c "echo 24 > /sys/class/gpio/export; echo in > /sys/class/gpio/gpio24/direction"'
 
 clean:
