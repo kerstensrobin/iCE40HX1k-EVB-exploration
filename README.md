@@ -94,3 +94,7 @@ make flash RPI_HOST=pi@...  # copy to RPi and flash
 - [Getting started tutorial (cocoacrumbs)](https://www.cocoacrumbs.com/blog/2023-01-27-getting-started-with-the-olimex-ice40hx1k-evb/)
 - [RPi programming notes (anse1)](https://github.com/anse1/olimex-ice40-notes)
 - [SBC programmer interface inspiration (tomek-szczesny)](https://github.com/tomek-szczesny/ice40hx8k-evb-prog-if)
+
+---
+
+made with <3 by [nacho.works](https://nacho.works)
