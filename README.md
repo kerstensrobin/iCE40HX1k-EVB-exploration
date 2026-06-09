@@ -59,7 +59,7 @@ The padding step is required because `flashrom` writes the full 2 MB flash chip;
 
 **RPi → EVB wiring (RPi pin → EVB header):**
 
-The EVB is powered separately via its barrel jack. Only 5 signals are needed:
+Only 5 signals are needed:
 
 ![RPi wiring](images/piwiring.jpg)
 
