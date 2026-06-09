@@ -63,7 +63,7 @@ The padding step is required because `flashrom` writes the full 2 MB flash chip;
 | 24 (CE0) | CS | #CD/SS_B |
 | 25 | GND | GND |
 
-> **Pin-out warning:** The UEXT/SPI header on the EVB can appear to be oriented either way depending on how you approach the board. Two nights were lost to a connector plugged in 180 degrees rotated. Before powering up, physically verify pin 1 (marked on the PCB silkscreen) matches your cable. When in doubt, probe 3v3 and GND before connecting the SPI lines.
+> **Pin-out warning:** The UEXT/SPI header on the EVB can appear to be oriented either way depending on how you approach the board, and pin 1 is **not marked on the PCB**. Pin 1 is the **right pin of the top row, directly above the barrel jack**. Two nights were lost to a connector plugged in 180 degrees rotated. When in doubt, probe 3v3 and GND before connecting the SPI lines.
 
 ## Examples
 

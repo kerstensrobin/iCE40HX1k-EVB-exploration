@@ -45,7 +45,7 @@ yosys --version && nextpnr-ice40 --version && ghdl --version
 
 ## 3. Wiring
 
-> **Double-check pin 1 orientation before connecting.** The UEXT header looks symmetric — plugging it in 180° rotated will waste your evening.
+> **Double-check pin 1 orientation before connecting.** The UEXT header looks symmetric and pin 1 is not marked on the PCB. Pin 1 is the **right pin of the top row, directly above the barrel jack**. Plugging it in 180° rotated will waste your evening.
 
 | RPi pin | Signal | EVB header pin |
 |---------|--------|----------------|
