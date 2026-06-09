@@ -23,10 +23,11 @@ $(PROJ).bin: $(PROJ).asc
 flash: $(PROJ).bin
 	scp $(PROJ).bin $(RPI_HOST):~/$(PROJ).bin
 	ssh $(RPI_HOST) '\
-		tr "\000" "\377" < /dev/zero | dd bs=2M count=1 of=flash_image.bin 2>/dev/null; \
-		dd if=$(PROJ).bin conv=notrunc of=flash_image.bin 2>/dev/null; \
+		dd if=/dev/zero of=flash_image.bin bs=2097152 count=1 2>/dev/null; \
+		dd if=$(PROJ).bin of=flash_image.bin conv=notrunc 2>/dev/null; \
+		sudo pinctrl set 24 op dl; \
 		sudo /usr/local/sbin/flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=20000 -w flash_image.bin; \
-		sudo sh -c "echo 24 > /sys/class/gpio/export; echo in > /sys/class/gpio/gpio24/direction"'
+		sudo pinctrl set 24 ip'
 
 clean:
 	rm -f $(PROJ).json $(PROJ).asc $(PROJ).bin flash_image.bin
