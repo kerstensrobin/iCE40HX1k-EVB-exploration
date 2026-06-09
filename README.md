@@ -25,7 +25,15 @@ ghdl → yosys (ghdl plugin) → nextpnr-ice40 → icepack → top.bin
 
 ## Programming via Raspberry Pi
 
-The board has no USB programmer — flashing is done over SPI from a Raspberry Pi (or similar SBC). Synthesis runs on your main machine; you copy the bitstream to the Pi and flash from there.
+The board has no USB programmer — flashing is done over SPI from a Raspberry Pi (or similar SBC) running headless. Synthesis runs on your main machine; the `make flash` target copies the bitstream to the Pi over SSH and runs flashrom remotely, so you never need to touch the Pi manually.
+
+The Pi is reachable as `raspberrypi.local` (or by IP from your router's device list). Set up SSH keys once to avoid password prompts:
+
+```bash
+ssh-copy-id pi@raspberrypi.local
+```
+
+See [QUICKSTART.md](QUICKSTART.md) for the full setup walkthrough.
 
 **RPi one-time setup:**
 ```bash
