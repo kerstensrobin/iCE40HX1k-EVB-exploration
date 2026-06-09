@@ -2,6 +2,8 @@
 
 Getting started with the [Olimex iCE40HX1K-EVB](https://www.olimex.com/Products/FPGA/iCE40/iCE40HX1K-EVB/) using an open-source toolchain and a Raspberry Pi as programmer.
 
+**New here? Start with [QUICKSTART.md](QUICKSTART.md).**
+
 ## Toolchain
 
 All synthesis tools come from the [OSS CAD Suite](https://github.com/YosysHQ/oss-cad-suite-build) — a single pre-built bundle, no manual compilation needed.
