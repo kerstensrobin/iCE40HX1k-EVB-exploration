@@ -1,5 +1,7 @@
 # Quickstart: build and flash an example via Raspberry Pi
 
+Tested with a Raspberry Pi 4. The SPI and GPIO pins referenced here are standard 40-pin header positions, so earlier Pi models should work too.
+
 ## 1. One-time RPi setup
 
 SSH into the Pi and run this block once. It enables SPI, exports the reset GPIO, and builds flashrom.
