@@ -1,6 +1,6 @@
 # iCE40HX1k-EVB-exploration
 
-Getting started with the [Olimex iCE40HX1K-EVB](https://www.olimex.com/Products/FPGA/iCE40/iCE40HX1K-EVB/) using an open-source toolchain and a Raspberry Pi as programmer.
+Getting started with the [Olimex iCE40HX1K-EVB](https://www.olimex.com/Products/FPGA/iCE40/iCE40HX1K-EVB/) using an open-source toolchain, VHDL and a Raspberry Pi 4 as programmer.
 
 **New here? Start with [QUICKSTART.md](QUICKSTART.md).**
 
