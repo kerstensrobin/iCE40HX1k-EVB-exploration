@@ -2,24 +2,49 @@
 
 Tested with a Raspberry Pi 4. The SPI and GPIO pins referenced here are standard 40-pin header positions, so earlier Pi models should work too.
 
+The RPi runs headless (no monitor or keyboard) — you interact with it entirely over SSH from your main machine.
+
 ## 1. One-time RPi setup
 
-SSH into the Pi and run this block once. It enables SPI, exports the reset GPIO, and builds flashrom.
+### Find the Pi on your network
+
+If your router supports mDNS, the Pi is reachable as `raspberrypi.local`. Otherwise find its IP in your router's device list. Verify connectivity:
 
 ```bash
-# Enable SPI (requires reboot)
+ping raspberrypi.local
+```
+
+### SSH in
+
+```bash
+ssh pi@raspberrypi.local
+```
+
+Default credentials on a fresh Raspberry Pi OS install are `pi` / `raspberry`. You'll be prompted to change the password on first login.
+
+### Set up SSH keys (recommended)
+
+Avoids typing your password on every `make flash`:
+
+```bash
+# Run this on your main machine, not the Pi
+ssh-copy-id pi@raspberrypi.local
+```
+
+### Enable SPI
+
+On the Pi, run:
+
+```bash
 echo dtparam=spi=on | sudo tee -a /boot/config.txt
 sudo reboot
 ```
 
-After reboot, back on the Pi:
+After the reboot, SSH back in. SPI is now available at `/dev/spidev0.0`.
+
+### Install flashrom
 
 ```bash
-# Export CRESET GPIO
-echo 24 | sudo tee /sys/class/gpio/export
-echo out | sudo tee /sys/class/gpio/gpio24/direction
-
-# Build and install flashrom (no libpci/libusb needed)
 sudo apt install -y git build-essential
 git clone https://www.flashrom.org/git/flashrom.git
 cd flashrom
@@ -28,6 +53,8 @@ make CONFIG_ENABLE_LIBPCI_PROGRAMMERS=no \
      CONFIG_ENABLE_LIBUSB1_PROGRAMMERS=no
 sudo make install
 ```
+
+Verify: `flashrom --version`
 
 ## 2. One-time host setup
 
@@ -61,6 +88,8 @@ yosys --version && nextpnr-ice40 --version && ghdl --version
 
 ## 4. Build an example
 
+On your main machine:
+
 ```bash
 cd examples/blink
 make
@@ -74,19 +103,28 @@ Output: `blink.bin`
 make flash RPI_HOST=pi@raspberrypi.local
 ```
 
-This will:
-1. Copy `blink.bin` to the Pi
+This will, entirely from your main machine:
+1. Copy `blink.bin` to the Pi over SCP
 2. Pad it to the full 2 MB flash size
-3. Run `flashrom` over SPI
-4. Release CRESET so the FPGA boots the new configuration
+3. Assert CRESET (puts FPGA in reset, frees the SPI bus)
+4. Run `flashrom` over SPI
+5. Release CRESET so the FPGA boots the new configuration
 
-If the board doesn't respond after flashing, toggle power — the FPGA loads from flash on power-up.
+If the board doesn't respond after flashing, toggle power — the FPGA loads from flash on every power-up.
+
+## 6. Using the blink example
+
+The blink example has two modes toggled by pressing both buttons simultaneously:
+
+- **Mode 0** (default) — LED1 lights while BUT1 is held, LED2 lights while BUT2 is held
+- **Mode 1** — LED1 and LED2 blink alternately at 1 Hz
 
 ## Troubleshooting
 
 | Symptom | Likely cause |
 |---------|-------------|
+| `ping raspberrypi.local` fails | mDNS not supported by router — find IP in router device list instead |
 | `flashrom` finds no flash chip | SPI not enabled, or wiring wrong — re-check pin 1 orientation |
-| `flashrom` finds chip but write fails | Try dropping speed: `spispeed=4000` |
-| FPGA does nothing after flash | CRESET not released — re-run `echo in > /sys/class/gpio/gpio24/direction` on Pi |
+| `flashrom` finds chip but write fails | Try dropping speed: edit `spispeed=20000` to `spispeed=4000` in the Makefile |
+| FPGA does nothing after flash | Power cycle the board — FPGA reloads bitstream from flash on power-up |
 | `ghdl` not found | Run `source ~/.bashrc` first |
