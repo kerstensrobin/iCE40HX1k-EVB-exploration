@@ -74,17 +74,15 @@ yosys --version && nextpnr-ice40 --version && ghdl --version
 
 > **Double-check pin 1 orientation before connecting.** The UEXT header looks symmetric and pin 1 is not marked on the PCB. Pin 1 is the **right pin of the bottom row, directly above the barrel jack**. Plugging it in 180° rotated will waste your evening.
 
+The EVB is powered separately via its barrel jack. Only 5 signals are needed between the RPi and the EVB:
+
 | RPi pin | Signal | EVB header pin |
 |---------|--------|----------------|
-| 17 | 3v3 | 3v3 |
 | 18 (GPIO24) | CRESET | CRESET |
 | 19 (MOSI) | SDO | SDO |
-| 20 | GND | GND |
 | 21 (MISO) | SDI | SDI |
-| 22 (GPIO25) | CDONE | CDONE |
 | 23 (CLK) | SCK | SCK |
 | 24 (CE0) | CS | #CD/SS_B |
-| 25 | GND | GND |
 
 ## 4. Build an example
 

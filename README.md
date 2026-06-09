@@ -59,17 +59,15 @@ The padding step is required because `flashrom` writes the full 2 MB flash chip;
 
 **RPi → EVB wiring (RPi pin → EVB header):**
 
+The EVB is powered separately via its barrel jack. Only 5 signals are needed:
+
 | RPi pin | Signal | EVB |
 |---------|--------|-----|
-| 17 | 3v3 | 3v3 |
 | 18 (GPIO24) | CRESET | CRESET |
 | 19 (MOSI) | SDO | SDO |
-| 20 | GND | GND |
 | 21 (MISO) | SDI | SDI |
-| 22 (GPIO25) | CDONE | CDONE |
 | 23 (CLK) | SCK | SCK |
 | 24 (CE0) | CS | #CD/SS_B |
-| 25 | GND | GND |
 
 > **Pin-out warning:** The UEXT/SPI header on the EVB can appear to be oriented either way depending on how you approach the board, and pin 1 is **not marked on the PCB**. Pin 1 is the **right pin of the bottom row, directly above the barrel jack**. Two nights were lost to a connector plugged in 180 degrees rotated. When in doubt, probe 3v3 and GND before connecting the SPI lines.
 
