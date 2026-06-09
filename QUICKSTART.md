@@ -76,6 +76,8 @@ yosys --version && nextpnr-ice40 --version && ghdl --version
 
 The EVB is powered separately via its barrel jack. Only 5 signals are needed between the RPi and the EVB:
 
+![RPi wiring](../../images/piwiring.jpg)
+
 | RPi pin | Signal | EVB header pin |
 |---------|--------|----------------|
 | 18 (GPIO24) | CRESET | CRESET |
