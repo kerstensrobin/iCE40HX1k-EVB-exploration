@@ -63,6 +63,22 @@ The padding step is required because `flashrom` writes the full 2 MB flash chip;
 
 > **Pin-out warning:** The UEXT/SPI header on the EVB can appear to be oriented either way depending on how you approach the board. Two nights were lost to a connector plugged in 180 degrees rotated. Before powering up, physically verify pin 1 (marked on the PCB silkscreen) matches your cable. When in doubt, probe 3v3 and GND before connecting the SPI lines.
 
+## Examples
+
+### [`examples/blink`](examples/blink)
+
+Ported from the [official Olimex demo](https://github.com/OLIMEX/iCE40HX1K-EVB/tree/master/demo/ice40hx1k-evb) (originally Verilog + arachne-pnr) to VHDL with nextpnr-ice40.
+
+Two modes toggled by pressing both buttons simultaneously:
+- **Mode 0** — LEDs mirror buttons directly
+- **Mode 1** — LEDs blink in opposition at ~1 Hz (0.5 s each phase)
+
+```bash
+cd examples/blink
+make                        # synthesise → blink.bin
+make flash RPI_HOST=pi@...  # copy to RPi and flash
+```
+
 ## References
 
 - [Getting started tutorial (cocoacrumbs)](https://www.cocoacrumbs.com/blog/2023-01-27-getting-started-with-the-olimex-ice40hx1k-evb/)
