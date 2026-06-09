@@ -1,7 +1,7 @@
 PROJ    = blink
 TOP     = top
 DEVICE  = hx1k
-PACKAGE = tq144
+PACKAGE = vq100
 PCF     = ice40hx1k-evb.pcf
 SOURCES = top.vhd
 
