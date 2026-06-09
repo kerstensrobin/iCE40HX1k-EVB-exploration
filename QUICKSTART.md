@@ -2,7 +2,7 @@
 
 Tested with a Raspberry Pi 4. The SPI and GPIO pins referenced here are standard 40-pin header positions, so earlier Pi models should work too.
 
-The RPi runs headless (no monitor or keyboard) — you interact with it entirely over SSH from your main machine.
+The RPi is only used for its SPI interface — `make flash` handles everything over SSH automatically, so you never need to manually log into the Pi to flash the board.
 
 ## 1. One-time RPi setup
 
@@ -118,6 +118,8 @@ The blink example has two modes toggled by pressing both buttons simultaneously:
 
 - **Mode 0** (default) — LED1 lights while BUT1 is held, LED2 lights while BUT2 is held
 - **Mode 1** — LED1 and LED2 blink alternately at 1 Hz
+
+To switch modes, **hold both buttons down at the same time**. Hold them again to switch back.
 
 ## Troubleshooting
 
